@@ -1,24 +1,18 @@
-from Crypto.Cipher import Playfair
-from Crypto.Random import get_random_bytes
+from pycipher import Playfair
 
-def encrypt(plaintext, key):
-    cipher = Playfair.new(key.encode(), Playfair.MODE_ECB)
-    ciphertext = cipher.encrypt(plaintext.encode())
-    return ciphertext
+plaintext = "Rohith"
+subkey=input("Enter key Capitals:")
+key=subkey
+charset = "ABCDEFGHIKLMNOPQRSTUVWXYZ"
+for i in charset:
+    if i not in subkey:
+        key+=(i)
 
-def decrypt(ciphertext, key):
-    cipher = Playfair.new(key.encode(), Playfair.MODE_ECB)
-    plaintext = cipher.decrypt(ciphertext).decode()
-    return plaintext
+        
+print("Plain text:",plaintext)
+cipher = Playfair(key)
+encrypted_text = cipher.encipher(plaintext)
+print("Encrypted:", encrypted_text)
 
-# Example usage
-key = "KEYWORD"
-plaintext = "HELLO WORLD"
-
-# Encrypt
-ciphertext = encrypt(plaintext, key)
-print("Encrypted:", ciphertext.hex())
-
-# Decrypt
-decrypted_text = decrypt(ciphertext, key)
-print("Decrypted:", decrypted_text)
+decrypted_text = cipher.decipher(encrypted_text)
+print("Decrypted:",decrypted_text)
