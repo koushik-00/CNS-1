@@ -1,1 +1,3 @@
 # CNS
+
+pip install pycryptodome
